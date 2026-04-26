@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-card">
+        <h1>Retail Dashboard</h1>
+        <p>
+            Explore engagement over time, department-level sales, and loyalty-based spending behavior.
+        </p>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ total_sales }}</h3>
+        <p>Total Sales</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ total_baskets }}</h3>
+        <p>Total Baskets</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ total_households }}</h3>
+        <p>Total Households</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ avg_basket_spend }}</h3>
+        <p>Avg Basket Spend</p>
+    </div>
+</section>
+
+<section class="feature-grid">
+    <div class="feature-card">
+        <h2>Monthly Sales Trend</h2>
+        <div>{{ monthly_sales_chart|safe }}</div>
+    </div>
+
+    <div class="feature-card">
+        <h2>Top Departments by Sales</h2>
+        <div>{{ department_sales_chart|safe }}</div>
+    </div>
+
+    <div class="feature-card" style="grid-column: 1 / -1;">
+        <h2>Loyalty vs Non-Loyalty Spending</h2>
+        <div>{{ loyalty_sales_chart|safe }}</div>
+    </div>
+</section>
+{% endblock %}

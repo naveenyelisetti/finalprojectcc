@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-card">
+        <h1>Retail Customer Intelligence Platform</h1>
+        <p>
+            A cloud-based retail analytics application for household search, dashboard insights,
+            data loading, and machine learning results.
+        </p>
+
+        <div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ households_count }}</h3>
+        <p>Households</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ transactions_count }}</h3>
+        <p>Transactions</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ products_count }}</h3>
+        <p>Products</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ sales_value }}</h3>
+        <p>Total Sales</p>
+    </div>
+</div>
+    </div>
+</section>
+
+<section class="feature-grid">
+    <div class="card">
+        <h2>Register</h2>
+        <p>Create an account to access the application.</p>
+
+        <form method="POST" class="login-grid">
+            <input type="hidden" name="action" value="register">
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Login</h2>
+        <p>Login to continue to the secure pages.</p>
+
+        <form method="POST" class="login-grid">
+            <input type="hidden" name="action" value="login">
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="login_email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="login_password" placeholder="Enter password" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% if message %}
+    <div class="alert success-alert">
+        <strong>Success:</strong> {{ message }}
+    </div>
+{% endif %}
+
+{% if error %}
+    <div class="alert error-alert">
+        <strong>Error:</strong> {{ error }}
+    </div>
+{% endif %}
+{% endblock %}

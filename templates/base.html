@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Customer Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Retail Customer Intelligence</div>
+        <div class="nav-links">
+            {% if session.get("user_id") %}
+                <a href="/search">Household Search</a>
+                <a href="/upload">Data Upload</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/ml">ML Insights</a>
+                <a href="/logout">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="page-wrapper">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

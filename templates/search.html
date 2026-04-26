@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-card">
+        <h1>Household Search</h1>
+        <p>
+            Search a household number and view the linked data pull from Households,
+            Transactions, and Products.
+        </p>
+
+        <form method="GET" class="search-form">
+            <input
+                type="number"
+                id="hshd_num"
+                name="hshd_num"
+                placeholder="Enter Household Number (e.g. 10)"
+                value="{{ searched_hshd if searched_hshd else '' }}"
+                required
+            >
+            <button type="submit">Search</button>
+        </form>
+
+        {% if searched_hshd %}
+            <div class="info-chip">
+                Searched Household: <strong>{{ searched_hshd }}</strong>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="alert error-alert">
+                <strong>Error:</strong> {{ error }}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if results is not none %}
+<section class="results-section">
+    <div class="results-header">
+        <h2>Search Results</h2>
+        <span class="result-badge">Total rows: {{ total_rows }}</span>
+    </div>
+
+    {% if results|length > 0 %}
+        <div class="table-card">
+            <div class="table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            {% for key in results[0].keys() %}
+                                <th>{{ key }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in results %}
+                            <tr>
+                                {% for value in row.values() %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-bar">
+                <div class="pagination-info">
+                    Page {{ page }} of {{ total_pages if total_pages > 0 else 1 }}
+                </div>
+
+                <div class="pagination-buttons">
+                    {% if page > 1 %}
+                        <a class="page-btn" href="{{ url_for('search', hshd_num=searched_hshd, page=page-1) }}">Previous</a>
+                    {% endif %}
+
+                    {% if page < total_pages %}
+                        <a class="page-btn" href="{{ url_for('search', hshd_num=searched_hshd, page=page+1) }}">Next</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            No records found for this household.
+        </div>
+    {% endif %}
+</section>
+{% endif %}
+{% endblock %}
